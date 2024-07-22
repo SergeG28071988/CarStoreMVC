@@ -1,0 +1,51 @@
+﻿@model List<Car>
+
+@{
+}
+
+<h2 class="text-center mb-5">List of Cars</h2>
+
+<div class="row mb-5">
+    <div class="col">
+        <a class="btn btn-primary" asp-controller="Cars" asp-action="Create">New Car</a>
+    </div>
+    <div class="col"></div>
+</div> 
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Desc</th>
+            <th>Availability</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Created At</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>@car.Id</td>
+                <td>@car.Brand</td>
+                <td>@car.Model</td>
+                <td>@car.Desc</td>
+                <td>@car.Availability</td>
+                <td>@(car.Price) руб</td>
+                <td><img src="/images/@car.Image" width="100" /></td>
+                <td>@car.CreatedAt.ToString("dd/MM/yyyy")</td>
+                <td style="white-space:nowrap">
+                    <a class="btn btn-primary btn-sm" asp-controller="Cars" asp-action="Edit" 
+                        asp-route-id="@car.Id">Edit</a>
+                    <a class="btn btn-danger btn-sm" asp-controller="Cars" asp-action="Delete"
+                       asp-route-id="@car.Id" onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>    
+</table>
